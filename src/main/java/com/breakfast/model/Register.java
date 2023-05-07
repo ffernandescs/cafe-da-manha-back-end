@@ -1,5 +1,6 @@
 package com.breakfast.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,30 +10,30 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
 
-@Table(name = "coffe")
 @Data
 @Entity
-
-public class Coffe {
+@Table(name = "users")
+public final class Register implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty("_id")
 	private Long id;
 	
-	@Column(length = 200, nullable = false)
-	 private String item;
+	@Column(nullable = false, length = 64)
+	 private String nome;
 	
+	@Column(nullable = false, length = 11, unique = true)
+	 private String cpf;
 	
-	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date data = new java.sql.Date(System.currentTimeMillis());
-	
-	@Column(length = 200, nullable = false)
-	 private String usuario;
+	@Column(nullable = false, length = 64)
+	 private String password;
+
 }

@@ -17,22 +17,6 @@ public class BreakfastApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BreakfastApplication.class, args);
 	}
-	
-	@Bean
-	CommandLineRunner initDatabase(CoffeRepository coffeRepository) {
-		return args -> {
-			
-			coffeRepository.deleteAll();
-			
-			Coffe c = new Coffe();
-			c.setItem("Bolo");
-			c.setUsuario("Felipe Fernandes");
-			
-			
-;
-			
-			coffeRepository.save(c);
-		};
-	}
+
 
 }
