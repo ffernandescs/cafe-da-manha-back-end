@@ -31,4 +31,10 @@ public class UsuarioModel {
     @CreationTimestamp
     private LocalDateTime dataCriacao;
 
+    public Integer getId() {
+        return id;
+    }
+    
+    
+
 }

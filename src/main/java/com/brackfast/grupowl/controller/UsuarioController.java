@@ -45,15 +45,7 @@ public class UsuarioController {
         return ResponseEntity.ok(repository.findAll());
     }
     
-    
-    /*@PostMapping("/salvar")
-    public ResponseEntity<UsuarioModel> salvar(@RequestBody UsuarioModel usuario) {
-        usuario.setPassword(encoder.encode(usuario.getPassword()));
-        return ResponseEntity.ok(repository.save(usuario));
-    }*/
-    
-    
-    @PostMapping("/salvar")
+    @PostMapping("/register")
     public ResponseEntity<UsuarioModel> salvar(@RequestBody UsuarioModel usuario) {
         usuario.setPassword(encoder.encode(usuario.getPassword()));
         usuario.setDataCriacao(LocalDateTime.now());
@@ -61,20 +53,4 @@ public class UsuarioController {
         return ResponseEntity.ok(savedUsuario);
     }
  
-
-    /*@GetMapping("/validarSenha")
-    public ResponseEntity<Boolean> validarSenha(@RequestParam String login,
-                                                @RequestParam String password) {
-
-        Optional<UsuarioModel> optUsuario = repository.findByLogin(login);
-        if (optUsuario.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
-        }
-
-        UsuarioModel usuario = optUsuario.get();
-        boolean valid = encoder.matches(password, usuario.getPassword());
-
-        HttpStatus status = (valid) ? HttpStatus.OK : HttpStatus.UNAUTHORIZED;
-        return ResponseEntity.status(status).body(valid);
-    }*/
 }

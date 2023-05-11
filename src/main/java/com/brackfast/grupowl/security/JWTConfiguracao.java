@@ -36,6 +36,7 @@ public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
             .addFilter(new JWTValidarFilter(authenticationManager()))
             .authorizeRequests()
             .antMatchers("/api/login").permitAll()
+            .antMatchers("/api/register").permitAll()
             .anyRequest().authenticated();
     }
     

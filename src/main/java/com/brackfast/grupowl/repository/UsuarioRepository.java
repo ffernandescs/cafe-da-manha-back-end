@@ -7,9 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Integer> {
+	
+	@Query(value = "SELECT * FROM usuario", nativeQuery = true)
+	List<UsuarioModel> listarTodosUsuarios();
 	
 	@Modifying
     @Transactional
@@ -17,5 +21,10 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Integer> 
 	void createUsuario(@Param("nome") String nome, @Param("login") String login, @Param("password") String password);
 
 	public Optional<UsuarioModel> findByLogin(String login);
+	
+
 
 }
+
+
+

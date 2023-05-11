@@ -16,13 +16,27 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity(name="coffe")
 
 public class CoffeModel {
-
-    @Id
+	
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(unique = true)
     private String item;
+
+    private String nome;
+    
+    private String data;
+
     @CreationTimestamp
-    private LocalDateTime dataCriacao;
+    private LocalDateTime dateCreate;
+    
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private UsuarioModel usuario;
+    
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
+    }
     
 }

@@ -1,6 +1,7 @@
 package com.brackfast.grupowl.security;
 
 import com.auth0.jwt.JWT;
+
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.brackfast.grupowl.data.DetalheUsuarioData;
@@ -19,10 +20,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.HashMap;
+
 
 public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
 
-    public static final int TOKEN_EXPIRACAO = 600_000;
+    public static final int TOKEN_EXPIRACAO = 3_600_000;
     public static final String TOKEN_SENHA = "463408a1-54c9-4307-bb1c-6cced559f5a7";
 
     private final AuthenticationManager authenticationManager;
@@ -67,13 +70,16 @@ public class JWTAutenticarFilter extends UsernamePasswordAuthenticationFilter {
         System.out.println("Token JWT: " + token);
 
     
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonResponse = objectMapper.writeValueAsString(Map.of("token", token));
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("token", token);
+        responseMap.put("nome", usuarioData.getNome());
+        responseMap.put("id", usuarioData.getId());
 
-        
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse = objectMapper.writeValueAsString(responseMap);
+
         response.setContentType("application/json");
 
-       
         response.getWriter().write(jsonResponse);
         response.getWriter().flush();
     }

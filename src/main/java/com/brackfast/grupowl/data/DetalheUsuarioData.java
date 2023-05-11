@@ -31,6 +31,14 @@ public class DetalheUsuarioData implements UserDetails {
     public String getUsername() {
         return usuario.orElse(new UsuarioModel()).getLogin();
     }
+    
+    public String getNome() {
+        return usuario.map(UsuarioModel::getNome).orElse("");
+    }
+    
+    public Integer getId() {
+        return usuario.map(UsuarioModel::getId).orElse(null);
+    }
 
     @Override
     public boolean isAccountNonExpired() {
