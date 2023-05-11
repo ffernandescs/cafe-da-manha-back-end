@@ -35,14 +35,7 @@ public class CoffeController {
         return ResponseEntity.ok(coffes);
     }
 
-    
-    
-    /*@PostMapping("/register")
-    public ResponseEntity<CoffeModel> createCoffee(@RequestBody CoffeModel coffe) {
-    	CoffeModel savedCafe = coffeRepository.save(coffe);
-        return ResponseEntity.ok(savedCafe);
-    }*/
-    
+     
     
     @PostMapping("/register")
     public ResponseEntity<CoffeModel> createCoffee(@RequestBody CoffeModel coffe, Principal principal) {

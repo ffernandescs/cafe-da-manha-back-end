@@ -42,7 +42,7 @@ public class UsuarioController {
     
     
 
-    @GetMapping("/listarTodos")
+    @GetMapping("/listUsers")
     public ResponseEntity<List<UsuarioModel>> listarTodos() {
         return ResponseEntity.ok(repository.findAll());
     }
