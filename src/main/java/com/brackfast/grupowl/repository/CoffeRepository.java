@@ -29,6 +29,11 @@ public interface CoffeRepository extends JpaRepository<CoffeModel, Long> {
 	@Query(value = "INSERT INTO usuario (item, usuario, data) VALUES (:item, :usuario, :data)", nativeQuery = true)
 	void createCoffe(@Param("item") String item, @Param("usuario") String usuario, @Param("data") String data);
 
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM coffe WHERE id = :idCoffe AND usuario_id = :idUsuario", nativeQuery = true)
+	int deleteCoffeByUsuario(@Param("idCoffe") Long idCoffe, @Param("idUsuario") Integer idUsuario);
+
 
     
 

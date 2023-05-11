@@ -39,6 +39,8 @@ public class UsuarioController {
         this.repository = repository;
         this.encoder = encoder;
     }
+    
+    
 
     @GetMapping("/listarTodos")
     public ResponseEntity<List<UsuarioModel>> listarTodos() {

@@ -64,4 +64,14 @@ public class CoffeController {
         return ResponseEntity.ok(coffes);
     }
     
+    @DeleteMapping("/deleteCoffe")
+    public ResponseEntity<String> deleteCoffeByUsuario(@RequestParam("idCoffe") Long idCoffe, @RequestParam("idUsuario") Integer idUsuario) {
+        int deletedRows = coffeRepository.deleteCoffeByUsuario(idCoffe, idUsuario);
+        if (deletedRows > 0) {
+            return ResponseEntity.ok("Coffe deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Coffe not found for the given user");
+        }
+    }
+    
 }
