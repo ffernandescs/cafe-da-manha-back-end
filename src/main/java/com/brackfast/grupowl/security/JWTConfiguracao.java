@@ -2,9 +2,9 @@ package com.brackfast.grupowl.security;
 
 import com.brackfast.grupowl.services.DetalheUsuarioServiceImpl;
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
+
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,6 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+
+
 
 @EnableWebSecurity
 public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
@@ -29,31 +32,27 @@ public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .addFilter(new JWTAutenticarFilter(authenticationManager()))
-            .addFilter(new JWTValidarFilter(authenticationManager()))
-            .authorizeRequests()
-            .antMatchers("/api/login").permitAll()
-            .antMatchers("/api/register").permitAll()
-            .anyRequest().authenticated();
-    }
+    	http.cors().and().csrf().disable()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .addFilter(new JWTAutenticarFilter(authenticationManager()))
+        .addFilter(new JWTValidarFilter(authenticationManager()))
+        .authorizeRequests()
+        .antMatchers("/api/login").permitAll()
+        .antMatchers("/api/register").permitAll()
+        .anyRequest().authenticated();
+    }	
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(usuarioService).passwordEncoder(passwordEncoder);
     }
+    
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
         CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-        corsConfiguration.addAllowedMethod(HttpMethod.POST);
-        corsConfiguration.addAllowedMethod(HttpMethod.GET);
-        corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
-        
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
